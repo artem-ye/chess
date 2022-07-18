@@ -1,4 +1,4 @@
-export class Cell {
+export class Square {
 	#x;
 	#y;
 	#color;
@@ -13,19 +13,31 @@ export class Cell {
 		this.#id = Math.random();
 	}
 
-	clone() {
-		const newCell = new Cell(this.x, this.y, this.#color);
-		newCell.#id = this.#id;
+	clone(board) {
+		const clone = new Square(this.x, this.y, this.#color);
+		clone.#id = this.#id;
 		if (this.piece) {
-			newCell.piece = this.piece.clone();
+			clone.piece = this.piece.clone(board);
 		}
 
-		newCell.isHighlighted = this.isHighlighted;
-		return newCell;
+		clone.isHighlighted = this.isHighlighted;
+		return clone;
 	}
 
 	isEmpty() {
 		return this.piece ? false : true;
+	}
+
+	clear() {
+		this.piece = null;
+	}
+
+	getPieceType() {
+		return this.piece?.type || null;
+	}
+
+	getPieceColor() {
+		return this.piece?.color || null;
 	}
 
 	get color() {

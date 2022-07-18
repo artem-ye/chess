@@ -1,33 +1,32 @@
-import { Piece } from './piece';
+import { Piece } from './base/piece';
 import { faChessRook } from '@fortawesome/free-solid-svg-icons';
 import { PIECES_TYPES } from '../enums/piecesTypes';
-import { Cells } from '../cells';
+// import { Cells } from '../cells';
 
 export class Rook extends Piece {
 	instanceOf = Rook;
 	type = PIECES_TYPES.ROOK;
 	icon = faChessRook;
 
-	canMove(cells, sourceCell, targetCell) {
-		if (!super.canMove(cells, sourceCell, targetCell)) {
+	canMove(target) {
+		if (!super.canMove(target)) {
 			return false;
 		}
-
-		return this.canMove(cells, sourceCell, targetCell);
+		return this.canAttack(target);
 	}
 
-	canAttack(cells, sourceCell, targetCell) {
-		// console.log('ROOK', sourceCell, targetCell);
-
-		if (!super.canAttack(cells, sourceCell, targetCell)) {
+	canAttack(target) {
+		if (!super.canAttack(target)) {
 			return false;
 		}
 
-		if (Cells.isVerticalFree(cells, sourceCell, targetCell)) {
+		const source = this.getSquare();
+
+		if (this.isVerticalFree(source, target)) {
 			return true;
 		}
 
-		if (Cells.isHorizontalFree(cells, sourceCell, targetCell)) {
+		if (this.isHorizontalFree(source, target)) {
 			return true;
 		}
 

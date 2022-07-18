@@ -6,13 +6,11 @@ import { COLOR } from '../../model/enums/color';
 import CellComponent from '../cell/cellComponent';
 import CellTitleComponent, { TITLE_ORIENTATION } from '../cellTitle/cellTitleComponent';
 import CellTitleCornerComponent from '../cellTitleCorner/cellTitleCornerComponent';
-import { Board } from '../../model/board';
 import { Player } from '../../model/player';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 const columns = '01234567'.split('').map((e) => Number(e));
 const rows = '76543210'.split('').map((e) => Number(e));
-
 const columnsReverse = [...columns].reverse();
 const rowsReverse = [...rows].reverse();
 
@@ -22,9 +20,6 @@ const indexToChar = (index) => {
 
 const BoardComponent = ({ board, onMove, activePlayer }) => {
 	const [activeCell, setActiveCell] = useState(null);
-
-	// const currentColumns = columns;
-	// const currentRows = rows;
 
 	const currentColumns = activePlayer.color === COLOR.BLACK ? columnsReverse : columns;
 	const currentRows = activePlayer.color === COLOR.BLACK ? rowsReverse : rows;
@@ -47,9 +42,9 @@ const BoardComponent = ({ board, onMove, activePlayer }) => {
 	// 	console.log('useEffect active player', activePlayer);
 	// }, [activePlayer]);
 
-	useEffect(() => {
-		console.log('useEffect onMove FUCK!!!');
-	}, [onMove]);
+	// useEffect(() => {
+	// 	console.log('useEffect onMove FUCK!!!');
+	// }, [onMove]);
 
 	// useEffect(() => {
 	// 	console.log('board changed');
@@ -119,7 +114,8 @@ const BoardComponent = ({ board, onMove, activePlayer }) => {
 };
 
 BoardComponent.propTypes = {
-	board: PropTypes.instanceOf(Board).isRequired,
+	// board: PropTypes.instanceOf(Board).isRequired,
+	board: PropTypes.object,
 	onMove: PropTypes.func.isRequired,
 	activePlayer: PropTypes.instanceOf(Player).isRequired,
 };
